@@ -1,0 +1,1151 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>RESTful</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/sky.css" id="theme">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+	<style>
+		:root{
+			user-select: none;
+		}
+		.slides {
+			text-align: left !important;
+		}
+
+		.tk-state {
+
+			background: #050801;
+		}
+
+		.tk {
+			text-align: center;
+			box-sizing: border-box;
+		}
+
+		.tk a {
+			position: relative;
+			display: inline-block;
+			padding: 25px 30px;
+			margin: 40px 0;
+			color: #03e9f4;
+			text-decoration: none;
+			text-transform: uppercase;
+			transition: 0.5s;
+			letter-spacing: 4px;
+			overflow: hidden;
+			margin-right: 50px;
+
+		}
+
+		.tk a.active {
+			background: #03e9f4;
+			color: #050801;
+			box-shadow: 0 0 5px #03e9f4,
+				0 0 25px #03e9f4,
+				0 0 50px #03e9f4,
+				0 0 200px #03e9f4;
+			-webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
+		}
+
+		.tk a:nth-child(1) {
+			filter: hue-rotate(270deg);
+		}
+
+		.tk a:nth-child(2) {
+			filter: hue-rotate(110deg);
+		}
+
+		.tk a:nth-child(3) {
+			filter: hue-rotate(-50deg);
+		}
+
+		.tk a span {
+			position: absolute;
+			display: block;
+		}
+
+		.tk a span:nth-child(1) {
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 2px;
+			background: linear-gradient(90deg, transparent, #03e9f4);
+			animation: animate1 1s linear infinite;
+		}
+
+		@keyframes animate1 {
+			0% {
+				left: -100%;
+			}
+
+			50%,
+			100% {
+				left: 100%;
+			}
+		}
+
+		.tk a span:nth-child(2) {
+			top: -100%;
+			right: 0;
+			width: 2px;
+			height: 100%;
+			background: linear-gradient(180deg, transparent, #03e9f4);
+			animation: animate2 1s linear infinite;
+			animation-delay: 0.25s;
+		}
+
+		@keyframes animate2 {
+			0% {
+				top: -100%;
+			}
+
+			50%,
+			100% {
+				top: 100%;
+			}
+		}
+
+		.tk a span:nth-child(3) {
+			bottom: 0;
+			right: 0;
+			width: 100%;
+			height: 2px;
+			background: linear-gradient(270deg, transparent, #03e9f4);
+			animation: animate3 1s linear infinite;
+			animation-delay: 0.50s;
+		}
+
+		@keyframes animate3 {
+			0% {
+				right: -100%;
+			}
+
+			50%,
+			100% {
+				right: 100%;
+			}
+		}
+
+
+		.tk a span:nth-child(4) {
+			bottom: -100%;
+			left: 0;
+			width: 2px;
+			height: 100%;
+			background: linear-gradient(360deg, transparent, #03e9f4);
+			animation: animate4 1s linear infinite;
+			animation-delay: 0.75s;
+		}
+
+		@keyframes animate4 {
+			0% {
+				bottom: -100%;
+			}
+
+			50%,
+			100% {
+				bottom: 100%;
+			}
+		}
+
+		.title-state {
+			background: radial-gradient(circle, #0077ea, #1f4f96, #1b2949, #000);
+		}
+
+		@import url('./css/font.css');
+
+		.title .stage {
+			height: 300px;
+			width: 500px;
+			margin: auto;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			perspective: 9999px;
+			transform-style: preserve-3d;
+		}
+
+		.title .layer {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			transform-style: preserve-3d;
+			animation: ಠ_ಠ 5s infinite alternate ease-in-out -7.5s;
+			animation-fill-mode: forwards;
+			transform: rotateY(40deg) rotateX(33deg) translateZ(0);
+		}
+
+		.title .layer:after {
+			font: 150px/0.65 "Pacifico", "Kaushan Script", Futura, "Roboto", "Trebuchet MS", Helvetica, sans-serif;
+			content: "REST\a ful!";
+			white-space: pre;
+			text-align: center;
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 50px;
+			color: whitesmoke;
+			letter-spacing: -2px;
+			text-shadow: 4px 0 10px rgba(0, 0, 0, 0.13);
+		}
+
+		.layer:nth-child(1):after {
+			transform: translateZ(0px);
+		}
+
+		.layer:nth-child(2):after {
+			transform: translateZ(-1.5px);
+		}
+
+		.layer:nth-child(3):after {
+			transform: translateZ(-3px);
+		}
+
+		.layer:nth-child(4):after {
+			transform: translateZ(-4.5px);
+		}
+
+		.layer:nth-child(5):after {
+			transform: translateZ(-6px);
+		}
+
+		.layer:nth-child(6):after {
+			transform: translateZ(-7.5px);
+		}
+
+		.layer:nth-child(7):after {
+			transform: translateZ(-9px);
+		}
+
+		.layer:nth-child(8):after {
+			transform: translateZ(-10.5px);
+		}
+
+		.layer:nth-child(9):after {
+			transform: translateZ(-12px);
+		}
+
+		.layer:nth-child(10):after {
+			transform: translateZ(-13.5px);
+		}
+
+		.layer:nth-child(11):after {
+			transform: translateZ(-15px);
+		}
+
+		.layer:nth-child(12):after {
+			transform: translateZ(-16.5px);
+		}
+
+		.layer:nth-child(13):after {
+			transform: translateZ(-18px);
+		}
+
+		.layer:nth-child(14):after {
+			transform: translateZ(-19.5px);
+		}
+
+		.layer:nth-child(15):after {
+			transform: translateZ(-21px);
+		}
+
+		.layer:nth-child(16):after {
+			transform: translateZ(-22.5px);
+		}
+
+		.layer:nth-child(17):after {
+			transform: translateZ(-24px);
+		}
+
+		.layer:nth-child(18):after {
+			transform: translateZ(-25.5px);
+		}
+
+		.layer:nth-child(19):after {
+			transform: translateZ(-27px);
+		}
+
+		.layer:nth-child(20):after {
+			transform: translateZ(-28.5px);
+		}
+
+		.title .layer:nth-child(n+10):after {
+			-webkit-text-stroke: 3px rgba(0, 0, 0, 0.25);
+		}
+
+		.title .layer:nth-child(n+11):after {
+			-webkit-text-stroke: 15px dodgerblue;
+			text-shadow: 6px 0 6px #00366b, 5px 5px 5px #002951, 0 6px 6px #00366b;
+		}
+
+		.title .layer:nth-child(n+12):after {
+			-webkit-text-stroke: 15px #0077ea;
+		}
+
+		.title .layer:last-child:after {
+			-webkit-text-stroke: 17px rgba(0, 0, 0, 0.1);
+		}
+
+		.title .layer:first-child:after {
+			color: #fff;
+			text-shadow: none;
+		}
+
+		@keyframes ಠ_ಠ {
+			100% {
+				transform: rotateY(-40deg) rotateX(-43deg);
+			}
+		}
+
+		div.foo {
+			width: 90%;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		.foo .letter {
+			display: inline-block;
+			font-weight: 900;
+			font-size: 2em;
+			margin: 0.2em;
+			position: relative;
+			color: #00B4F1;
+			transform-style: preserve-3d;
+			perspective: 400;
+			z-index: 1;
+		}
+
+		.foo .letter:before,
+		.letter:after {
+			position: absolute;
+			content: attr(data-letter);
+			transform-origin: top left;
+			top: 0;
+			left: 0;
+		}
+
+		.foo .letter,
+		.letter:before,
+		.letter:after {
+			transition: all 0.3s ease-in-out;
+		}
+
+		.foo .letter:before {
+			color: #94fac7;
+			text-shadow:
+				-1px 0px 1px rgba(255, 255, 255, .8),
+				1px 0px 1px rgba(0, 0, 0, .8);
+			z-index: 3;
+			transform:
+				rotateX(0deg) rotateY(-15deg) rotateZ(0deg);
+		}
+
+		.foo .letter:after {
+			color: rgba(0, 0, 0, .11);
+			z-index: 2;
+			transform:
+				scale(1.08, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 1deg);
+		}
+
+		.foo .letter.active:before {
+			color: #fafafa;
+			transform:
+				rotateX(0deg) rotateY(-40deg) rotateZ(0deg);
+		}
+
+		.foo .letter.active:after {
+			transform:
+				scale(1.08, 1) rotateX(0deg) rotateY(40deg) rotateZ(0deg) skew(0deg, 22deg);
+		}
+
+		x-sign {
+			font-size: 2em;
+			--interval: 1s;
+			display: block;
+			text-shadow:
+				0 0 10px var(--color1),
+				0 0 20px var(--color2),
+				0 0 40px var(--color3),
+				0 0 80px var(--color4);
+			will-change: filter, color;
+			filter: saturate(60%);
+			animation: flicker steps(100) var(--interval) 1s infinite;
+			color: azure;
+			color: yellow;
+			--color1: yellow;
+			--color2: lime;
+			--color3: green;
+			--color4: darkgreen;
+			font-family: Monoton;
+		}
+
+		@keyframes flicker {
+			50% {
+				color: white;
+				filter: saturate(200%) hue-rotate(20deg);
+			}
+		}
+
+		:root {
+			--color-background: #31037D;
+
+			--axis-x: 1px;
+			--axis-y: 1rem;
+			--delay: 10;
+
+			--color-black: #000;
+			--color-white: #fff;
+			--color-orange: #D49C3D;
+			--color-red: #D14B3D;
+			--color-violet: #CF52EB;
+			--color-blue: #44A3F7;
+			--color-green: #5ACB3C;
+			--color-yellow: #DEBF40;
+
+			--color-foreground: var(--color-white);
+			--font-name: Righteous;
+		}
+
+		.c-rainbow {
+			counter-reset: rainbow;
+			position: relative;
+			display: block;
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			width: 50%;
+		}
+
+		.c-rainbow li {
+			list-style: none;
+		}
+
+		.c-rainbow__layer {
+			--text-color: var(--color-foreground);
+			counter-increment: rainbow;
+			font-size: 3rem;
+			color: var(--text-color);
+			text-shadow: -1px -1px 0 var(--color-black), 1px -1px 0 var(--color-black), -1px 1px 0 var(--color-black), 1px 1px 0 var(--color-black), 4px 4px 0 rgba(0, 0, 0, 0.2);
+			animation: rainbow 1.5s ease-in-out infinite;
+		}
+
+		.c-rainbow__layer:nth-child(1) {
+			animation-delay: calc(1 / var(--delay) * 1s);
+			left: calc(var(--axis-x) * 1);
+			z-index: -10;
+		}
+
+		.c-rainbow__layer:nth-child(2) {
+			animation-delay: calc(2 / var(--delay) * 1s);
+			left: calc(var(--axis-x) * 2);
+			z-index: -20;
+		}
+
+		.c-rainbow__layer:nth-child(3) {
+			animation-delay: calc(3 / var(--delay) * 1s);
+			left: calc(var(--axis-x) * 3);
+			z-index: -30;
+		}
+
+		.c-rainbow__layer:nth-child(4) {
+			animation-delay: calc(4 / var(--delay) * 1s);
+			left: calc(var(--axis-x) * 4);
+			z-index: -40;
+		}
+
+		.c-rainbow__layer:nth-child(5) {
+			animation-delay: calc(5 / var(--delay) * 1s);
+			left: calc(var(--axis-x) * 5);
+			z-index: -50;
+		}
+
+		.c-rainbow__layer:nth-child(6) {
+			animation-delay: calc(6 / var(--delay) * 1s);
+			left: calc(var(--axis-x) * 6);
+			z-index: -60;
+		}
+
+		.c-rainbow__layer:nth-child(7) {
+			animation-delay: calc(7 / var(--delay) * 1s);
+			left: calc(var(--axis-x) * 7);
+			z-index: -70;
+		}
+
+		.c-rainbow__layer:not(:first-child) {
+			position: absolute;
+			top: 0;
+		}
+
+		.c-rainbow__layer--white {
+			--text-color: var(--color-white);
+		}
+
+		.c-rainbow__layer--orange {
+			--text-color: var(--color-orange);
+		}
+
+		.c-rainbow__layer--red {
+			--text-color: var(--color-red);
+		}
+
+		.c-rainbow__layer--violet {
+			--text-color: var(--color-violet);
+		}
+
+		.c-rainbow__layer--blue {
+			--text-color: var(--color-blue);
+		}
+
+		.c-rainbow__layer--green {
+			--text-color: var(--color-green);
+		}
+
+		.c-rainbow__layer--yellow {
+			--text-color: var(--color-yellow);
+		}
+
+		@keyframes rainbow {
+
+			0%,
+			100% {
+				transform: translateY(var(--axis-y));
+			}
+
+			50% {
+				transform: translateY(calc(var(--axis-y) * -1));
+			}
+		}
+
+		.wordCarousel {
+			font-size: 36px;
+			font-weight: 100;
+			color: #939393;
+			display: inline-block;
+		}
+
+		.wordCarousel div {
+			overflow: hidden;
+			position: relative;
+			float: right;
+			height: 65px;
+			padding-top: 10px;
+			margin-top: -10px;
+		}
+
+		.wordCarousel div li {
+			font-family: Serif;
+			color: #ff6a6a;
+			font-weight: 700;
+			padding: 0 10px;
+			height: 45px;
+			margin-bottom: 45px;
+			display: block;
+		}
+
+		.flip2 {
+			animation: flip2 6s cubic-bezier(0.42, 0, 1, 1) infinite;
+		}
+
+
+		@keyframes flip2 {
+			0% {
+				margin-top: 0px;
+			}
+
+			16.6% {
+				margin-top: -70px;
+			}
+
+			33.3% {
+				margin-top: -140px;
+			}
+
+			50% {
+				margin-top: -210px;
+			}
+
+			66.6% {
+				margin-top: -280px;
+			}
+
+			83.3% {
+				margin-top: -350px;
+			}
+
+			100% {
+				margin-top: 0px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section class="title" data-transition="zoom" data-state="title-state">
+				<div class="stage">
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+					<div class="layer"></div>
+				</div>
+			</section>
+			<section data-auto-animate>
+				<h2 data-id="URI-vs-URL" style="text-align: left;">URI&nbsp;vs&nbsp;URL&nbsp;vs&nbsp;URN</h2>
+			</section>
+			<section data-auto-animate>
+				<h2 data-id="URI-vs-URL" style="text-align: left;">URI&nbsp;vs&nbsp;URL&nbsp;vs&nbsp;URN</h2>
+				<div style="text-align: left;">
+					URI可被视为定位符（URL），名称（URN）或两者兼备。<br>
+					统一资源名（URN）如同一个人的名称，<br>
+					而统一资源定位符（URL）代表一个人的住址<br>
+					URN定义某事物的身份，而URL提供查找该事物的方法。URN仅用于命名，而不指定地址。
+				</div>
+			</section>
+			<section data-auto-animate>
+				<div data-id="REST">
+					<div class="foo">
+						<span class="letter" data-letter="R">R</span>
+						<span class="letter" data-letter="E">E</span>
+						<span class="letter" data-letter="S">S</span>
+						<span class="letter" data-letter="T">T</span>
+					</div>
+				</div>
+			</section>
+			<section>
+				<section data-auto-animate>
+					<div data-id="REST">
+						<div class="foo">
+							<span class="letter" data-letter="R">R</span>
+							<span class="letter" data-letter="E">E</span>
+							<span class="letter" data-letter="S">S</span>
+							<span class="letter" data-letter="T">T</span>
+						</div>
+					</div>
+					<em>REST(Representational State Transfer)，资源在网络中以某种表现形式进行状态转移。</em>
+				</section>
+				<section data-markdown style="text-align: left;">
+					<textarea data-template>
+							**Resources**:**资源**，是网络上的一个具体信息。可以是一段文本，一张图片…任何可以被引用的事物都可以是资源，唯一的条件就是**每个资源都必须拥有url**。<br>
+							**Representation**：**表现层**，把资源具体呈现出来的形式，叫做它的**表现层**。<br>
+							**State Transfer**：**状态转移**，客户端想要操作服务器，必须通过某种手段，让服务器发生状态转移。状态转移是建立在表现层之上的，所以叫"**表现层状态转移**"。<br>
+						</textarea>
+				</section>
+			</section>
+			<section data-auto-animate>
+				<ul class="c-rainbow" data-id="HTTP">
+					<li class="c-rainbow__layer c-rainbow__layer--white">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--orange">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--red">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--violet">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--blue">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--green">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--yellow">HTTP动词</li>
+				</ul>
+			</section>
+			<section data-auto-animate>
+				<ul class="c-rainbow" data-id="HTTP">
+					<li class="c-rainbow__layer c-rainbow__layer--white">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--orange">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--red">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--violet">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--blue">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--green">HTTP动词</li>
+					<li class="c-rainbow__layer c-rainbow__layer--yellow">HTTP动词</li>
+				</ul>
+				<ol>
+					<li>GET:获取资源的某个标识。</li>
+					<li>DELETE:销毁一个资源。</li>
+					<li>POST:基于给定的表述信息，在当前资源的下一级创建新的资源。</li>
+					<li>PUT:用给定的表述信息完整的替换资源的当前状态。</li>
+					<li>PATCH:用给定的表述信息部分的替换资源的当前状态。</li>
+					<li>HEAD:只返回HTTP状态码和报头，</li>
+					<li>OPTIONS:返回的报头展示这个资源所支持的所有HTTP方法。</li>
+				</ol>
+			</section>
+			<section>
+				幂等性：5 * 0 = 0，5 * 0 * 0=0 <br>
+				例如DELETE一个资源，无论发送多少次请求，资源的状态和你发送的第一次DELETE请求都是一样的。PUT，GET也是幂等的。
+			</section>
+			<section>
+				<h4 class="wordCarousel">
+					<span>状态码: </span>
+					<div>
+						<ul class="flip2">
+							<li>1XX</li>
+							<li>2XX</li>
+							<li>3XX</li>
+							<li>4XX</li>
+							<li>5XX</li>
+						</ul>
+					</div>
+				</h4>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+						##### 状态码家族
+						- 1XX:Informational:HTTP客户端和服务器之间进行协商时使用。
+						- 2XX:Successful:客户端所要求的任意状态转换已经发生。
+						- 3XX:Redirection:客户端要求的状态转换没有发生，客户端发起一个稍不同的HTTP请求，该请求完成客户端要求的行为。
+						- 4XX:Client Error:客户端要求的状态转换没有发生，客户端的请求可能有缺陷、不合逻辑、自相矛盾等等。
+						- 5XX:Server Error:由于服务器的原因，客户端要求的状态转换没有发生。
+					</textarea>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+						##### 四个状态码：最低限度
+						- 200（ok）：一切顺利，实体消息中的文档（如果有）是某个资源的一份表述。
+						- 301（Moved Permanently）：客户端触发某个将资源从一个URL移动到另一个URL的状态转化将会发送该状态码
+						- 400（Bad Request）：客户端存在问题，实体消息体中的文档（如果有）是一段错误消息。
+						- 500（Internal Server Error）：服务器存在问题。
+						在添加两个
+						- 404（Not Found）和409（Conflict）
+					</textarea>
+			</section>
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+							#### 表述选择：
+
+							##### 内容协商
+
+							客户端可以使用特定的HTTP请求报头告诉服务器它想要那些表述，这个过程称为内容协商。HTTP定义了5个请求报头，统称`Accept-*`	。有两个报头```Accept```和`Accept-Language`。
+
+							
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							例如浏览器发起HTTP请求浏览器会发送：
+							<pre><code>Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</code></pre>
+
+							HTML表述和XHTML表示为最高优先级，XML优先级低一些（q=0.9)，接着是接受二进制图片，然后是任何媒体类型，优先级最低(q=0.8)。
+
+							<pre><code>Accept-Language:zh-CN,zh;q=0.8,en;q=0.6</code></pre>
+							
+							优先级最高的为中文。
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							##### 缓存
+
+							`Cache-Control`报头可以增加缓存功能，
+							
+							`Cache-Control:max-age=3600`缓存一个小时，会作用于整个HTTP响应，包括报头和响应码。
+							
+							`Cache-Control:max-age=no-cache`不缓存。
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							##### 条件GET请求
+
+							`Last-Modified`和`ETag`
+							
+							`Last-Modified`告诉客户端该资源的状态上次改变的时间。客户端会记录下它的值，在下次请求之前，将该值放在`If-Modified-Since`，如果服务器端的资源没有变化，则自动返回 HTTP 304（Not Changed.）状态码，内容为空。当服务器端代码发生改变或者重启服务器时，则重新发出资源，返回和第一次请求时类似。
+							
+							```
+							Last-Modified : Fri , 12 May 2006 18:53:33 GMT
+							If-Modified-Since : Fri , 12 May 2006 18:53:33 GMT
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							##### 条件GET请求
+
+							`ETag`的过程和`Last-Modified`一致，下次请求的HTTP头里带有`If-None-Match `，一致会返回304，不一致会发送200和完整的消息体以及新的`ETag`
+
+							```
+							Etag:"2e681a-6-5d044840"
+							If-None-Match:"2e681a-6-5d044840"
+							```
+							
+							`Etag`更加可靠。
+						</textarea>
+				</section>
+			</section>
+			<section data-markdown>
+				<textarea data-template>
+						##### 压缩
+
+						客户端会发送
+						
+						`Accept-Encoding: gzip`
+						
+						服务器如果理解这种压缩算法，会对表述进行压缩，提供给客户端。
+					</textarea>
+			</section>
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+							#### 认证
+
+							RESTful服务器实现中并不存在会话（session）
+
+							##### Basic认证
+
+							##### OAuth 1.0
+
+							##### OAuth 2.0
+						</textarea>
+				</section>
+			</section>
+			<section data-state="api">
+				<x-sign>
+					设计一个api
+				</x-sign>
+			</section>
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+							``` 
+							https://api.example.com
+							https://www.example.com/api/
+							```
+							
+							将API版本放在URL中，另外一种是放在HTTP头信息中。
+							
+							```
+							https://api.example.com/v1/
+							Accept: vnd.example-com.foo+json; version=2.0
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							URL只使用**名词的复数**来指定资源，**不使用动词**，
+
+							```
+							GET https://www.api.example.com/friends   获取某人好友列表
+							POST https://www.api.example.com/friends 添加好友
+							PUT https://www.api.example.com/friends/:ID 更新好友(提供好友全部信息)
+							PATCH https://www.api.example.com/friends/:ID 更新好友(提供好友部分信息)
+							DELETE https://www.api.example.com/friends/:ID 删除好友
+							DELETE https://www.api.example.com/friends 删除全部好友
+							
+							GET https://www.api.example.com/books/:ID/pages 得到某个书的所有页
+							DELETE https://www.api.example.com/books/:ID/pages/:ID：删除某个指定书的指定页
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							反例
+
+							``` http
+							GET http://www.api.example/api/getallUsers       //GET 获取所有用户
+							GET http://www.api.example/api/getuser/1          //GET 获取标识为1用户信息
+							POST http://www.api.example/api/user/delete/1    //GET/POST 删除标识为1用户信息
+							POST http://www.api.example/api/updateUser/1   //POST 更新标识为1用户信息
+							POST http://www.api.example/api/User/add         //POST添加新的用户
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							反例
+
+							``` http
+							GET http://www.api.example/api/users               
+							GET http://www.api.example/api/users/1          
+							DELETE http://www.api.example/api/users/1          
+							PATCH http://www.api.example/api/users/1         
+							POST http://www.api.example/api/users 
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							过滤信息：API提供参数，过滤返回的结果。
+
+							```
+							?page=2&per_page=100：指定第几页，以及每页的记录数。
+							?sortby=name&order=asc：指定返回结果按照哪个属性排序，以及排序顺序。
+							在6月份的订单中大于500元的且用户地址是北京，用户年龄在22岁到40岁、购买金额降序排列的订单列表
+							http://example.com/api/orders?order_month=6&order_amount_greater=500&address_city=北京&sort=order_amount_desc&age_min=22&age_max=40
+							http://example.com/api/orders/beijing/6?order_amount_greater=500&sort=order_amount_desc&age_min=22&age_max=40
+
+							```
+							
+							参数设计允许冗余
+							
+							```
+							/books/ID/pages
+							/pages?book_id=ID
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							利用**状态码**来提示信息`200`,`404`,`201`等
+
+							**错误处理**：返回信息中包含error为键名
+							
+							``` json
+							{
+							  error:"Invalid name"
+							}
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							**返回结果**
+
+							```
+							GET /collection 返回资源对象的列表(数组)
+							GET /collection/resource：返回单个资源对象
+							POST /collection：返回新生成的资源对象
+							PUT /collection/resource：返回完整的资源对象
+							PATCH /collection/resource：返回完整的资源对象
+							DELETE /collection/resource：返回一个空文档
+							```
+						</textarea>
+				</section>
+			</section>
+			<section>
+				<section data-markdown>
+					<textarea data-template>
+							``` bash
+							PS D:\restful> curl http://127.0.0.1:3000/todos
+
+
+							StatusCode        : 200
+							StatusDescription : OK
+							Content           : {"todo1":{"task":"build an API"},"todo3":{"task":"profit!"},"todo2":{"task":"?????"}}
+							RawContent        : HTTP/1.1 200 OK
+												Connection: keep-alive
+												Content-Length: 85
+												Content-Type: application/json; charset=utf-8
+												Date: Sat, 18 Jul 2020 10:44:32 GMT
+												ETag: W/"55-c3N5Ag6dIJS7+fXTkc+NQr/0HiM"
+												X-Powered-By:...
+							Forms             : {}
+							Headers           : {[Connection, keep-alive], [Content-Length, 85], [Content-Type, application/json; charset=utf-8], [Date, Sat, 18 Jul 2020 10:44:32 GMT]...}
+							Images            : {}
+							InputFields       : {}
+							Links             : {}
+							ParsedHtml        : mshtml.HTMLDocumentClass
+							RawContentLength  : 85
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							``` bash
+							PS D:\restful> curl http://127.0.0.1:3000/todos/todo3
+
+
+							StatusCode        : 200
+							StatusDescription : OK
+							Content           : {"task":"profit!"}
+							RawContent        : HTTP/1.1 200 OK
+												Connection: keep-alive
+												Content-Length: 18
+												Content-Type: application/json; charset=utf-8
+												Date: Sat, 18 Jul 2020 10:48:05 GMT
+												ETag: W/"12-7KGDgFTmtsH+CgMi+9cjU5R6B9w"
+												X-Powered-By:...
+							Forms             : {}
+							Headers           : {[Connection, keep-alive], [Content-Length, 18], [Content-Type, application/json; charset=utf-8], [Date, Sat, 18 Jul 2020 10:48:05 GMT]...}
+							Images            : {}
+							InputFields       : {}
+							Links             : {}
+							ParsedHtml        : mshtml.HTMLDocumentClass
+							RawContentLength  : 18
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							``` bash
+							PS D:\restful> curl.exe http://127.0.0.1:3000/todos/todo3 -X DELETE -v
+
+							> DELETE /todos/todo3 HTTP/1.1
+							> Host: 127.0.0.1:3000
+							> User-Agent: curl/7.55.1
+							> Accept: */*
+							>
+							< HTTP/1.1 204 No Content
+							< X-Powered-By: Express
+							< ETag: W/"0-2jmj7l5rSw0yVb/vlWAYkK/YBwk"
+							< Date: Sat, 18 Jul 2020 11:03:40 GMT
+							< Connection: keep-alive
+							<
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							``` bash
+							PS D:\restful> curl.exe http://localhost:3000/todos -d "task=something new" -X POST -v
+							> POST /todos HTTP/1.1
+							> Host: localhost:3000
+							> User-Agent: curl/7.55.1
+							> Accept: */*
+							> Content-Length: 18
+							> Content-Type: application/x-www-form-urlencoded
+							>
+							* upload completely sent off: 18 out of 18 bytes
+							< HTTP/1.1 201 Created
+							< X-Powered-By: Express
+							< Content-Type: application/json; charset=utf-8
+							< Content-Length: 24
+							< ETag: W/"18-lild0qS22XXEkEuH0ocylTQb/KA"
+							< Date: Sat, 18 Jul 2020 11:11:34 GMT
+							< Connection: keep-alive
+							<
+							{"task":"something new"}
+							```
+						</textarea>
+				</section>
+				<section data-markdown>
+					<textarea data-template>
+							``` bash
+							PS D:\restful> curl.exe http://localhost:3000/todos/todo3 -d "task=something different" -X PUT -v
+
+							> PUT /todos/todo3 HTTP/1.1
+							> Host: localhost:3000
+							> User-Agent: curl/7.55.1
+							> Accept: */*
+							> Content-Length: 24
+							> Content-Type: application/x-www-form-urlencoded
+							>
+							* upload completely sent off: 24 out of 24 bytes
+							< HTTP/1.1 201 Created
+							< X-Powered-By: Express
+							< Content-Type: application/json; charset=utf-8
+							< Content-Length: 30
+							< ETag: W/"1e-JG1mDSnOrT0Pw5h6Gj4fMLsT8Ic"
+							< Date: Sat, 18 Jul 2020 11:17:21 GMT
+							< Connection: keep-alive
+							<
+							{"task":"something different"}
+							``` 
+						</textarea>
+				</section>
+			</section>
+			<section class="tk" data-state="tk-state">
+				<a href="#">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					谢
+				</a>
+				<a href="#">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					谢
+				</a>
+				<a href="#">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					聆
+				</a>
+				<a href="#">
+					<span></span>
+					<span></span>
+					<span></span>
+					<span></span>
+					听
+				</a>
+			</section>
+			<section class="tk" data-state="tk-state">
+				<div style="color: #ff6630;">下次谈谈		
+								
+					<div class="foo">
+						<span class="letter" data-letter="V">V</span>
+						<span class="letter" data-letter="U">U</span>
+						<span class="letter" data-letter="E">E</span>
+					</div>
+				原理及其规范</div>
+			</section>
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+			slideNumber: true,
+			controlsTutorial: true,
+			navigationMode: 'linear',
+			controlsLayout: 'edges',
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+		~ function () {
+			let a = document.getElementsByClassName('tk')[0].getElementsByTagName('a')
+
+			let index = 0
+
+			function run() {
+				Array.prototype.map.call(a, (i) => {
+					i.className = ''
+				})
+				a[index].className = 'active'
+				index++;
+				if (index > 3) index = 0;
+			}
+			setInterval(run, 300)
+		}();
+		~ function () {
+			let foo = document.getElementsByClassName('foo');	
+			Array.prototype.map.call(foo,f=>{
+				let a = f.getElementsByTagName('span')
+				let index = 0
+
+				function run() {
+					Array.prototype.map.call(a, (i) => {
+						i.className = 'letter'
+					})
+					a[index].className = 'letter active'
+					index++;
+					if (index >= a.length) index = 0;
+				}
+				setInterval(run, 300)
+			})
+		}()
+	</script>
+</body>
+
+</html>
